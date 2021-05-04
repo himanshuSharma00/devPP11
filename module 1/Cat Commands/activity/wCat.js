@@ -1,29 +1,46 @@
-const fs = require("fs");
+const { applySFlag,getFilesData } = require("./util");
+let contents = process.argv.slice(2);
+//console.log(contents);
 
-let f1kadata = fs.readFileSync("./f1.txt","utf8");
-let f2kadata = fs.readFileSync("./f2.txt","utf8");
+const flags = [];
+const files = [];
 
-// -s flag functioning 
-let removedSpacesString =  applySFlag(f1kadata);
-function applySFlag(f1kadata){
-    //   [ 'Hey I am F1', '', '', '', '',  '','Bye I am F1'];
-    let emptyIncluded = false;
-    let removedSpaces = [];
-    let splittedData = f1kadata.split("\r\n");
-
-    for(let i = 0; i < splittedData.length; i++){
-        if(splittedData[i] == "" && emptyIncluded == false){
-            removedSpaces.push(splittedData[i]);
-            emptyIncluded = true;
-        }else if(splittedData[i] != ""){
-            removedSpaces.push(splittedData[i]);
-            if (i < splittedData.length - 2) emptyIncluded = false;
-        }
+for(let i = 0; i < contents.length; i++){
+    if(contents[i].startsWith("-")){
+        flags.push(contents[i]);
+    }else{
+        files.push(contents[i]);
     }
-    // console.log(removedSpaces);
-    let removedSpacesString = removedSpaces.join("\r\n");
-    // console.log(removedSpacesString);
-    return removedSpacesString;
 }
 
-console.log(removedSpacesString);
+//-s -b -n
+//f1.txt //f2.txt
+
+
+
+let filesData = getFilesData(files);
+// console.log(filesData);
+
+// when both -b and -n flags are present
+if (flags.includes("-b") && flags.includes("-n")) {
+    if (flags.indexOf("-b") < flags.indexOf("-n")) {
+      // apply b flag
+      filesData = applyBFlag(filesData);
+    } else {
+      // apply n flag
+      filesData = applyNFlag(filesData);
+    }
+  }
+  // only -b flag is present
+  else if (flags.includes("-b")) {
+    // apply b flag
+    filesData = applyBFlag(filesData);
+  }
+  // only -n flag is present
+  else if (flags.includes("-n")) {
+    // apply n flag
+    filesData = applyNFlag(filesData);
+  }
+
+  console.flag(filesData);
+

@@ -11,9 +11,15 @@ function getAllMatches(allMatchesLink){
 function processData(html){
     let myDocument = cheerio.load(html);
     let allATags = myDocument('a[data-hover="Scorecard"]');
-    console.log(allATags.length);
+    // console.log(allATags);
+    // console.log(allATags.length);
     for(let i=0; i<allATags.length; i++){
+        // let matchLink = "https://www.espncricinfo.com" + allATags[i].attribs.href;
+        // console.log(matchLink);
         let matchLink = "https://www.espncricinfo.com" + myDocument(allATags[i]).attr("href");
         getMatchDetails(matchLink);
     }
+
 }
+
+module.exports = getAllMatches;

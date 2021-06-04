@@ -8,6 +8,16 @@ let todoList = document.querySelector(".todos-list");
 // let todo = todoInput.value;
 
 addTodoButton.addEventListener("click" , function(){
+    addTodo();
+})
+
+addTodoButton.addEventListener("keypress",function(e){
+    if(e.key == "Enter"){
+        addTodo(); 
+    }
+})
+
+function addTodo(){
     let todo = todoInput.value;
     if(todo){
       
@@ -34,10 +44,4 @@ addTodoButton.addEventListener("click" , function(){
 
         todoInput.value = "";
     }
-    
-})
-
-// todoInput.addEventListener("keypress",function(){
-   
-    
-// })
+}

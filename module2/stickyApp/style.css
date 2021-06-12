@@ -1,0 +1,82 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    border: 10px outset #98c1d9;
+}
+.header{
+    height: 20vh;
+    background-image: linear-gradient(#168aad,#52b69a);
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    border-bottom: 5px solid #98c1d9;
+    
+    /* background: black; */
+}
+#filters{
+    height: 40%;
+    width: 50%;
+    border: 7px outset #354f52;
+    background-color: #52796f;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.filter{
+    height: 70%;
+    width : 15%;
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;   
+}
+.red{
+    background-color: #723d46;
+}
+.blue{
+    background-color: #0081a7;
+}
+.green{ 
+    background-color: #656d4a;
+}
+.brown{
+    background-color: #9d6b53;
+}
+.black{
+    background-color: #333d29;
+}
+.actions{
+    height: 40%;
+    width: 10%;
+    border: 4px solid #354f52;
+    /* border-radius: 20%; */
+    display: flex;
+    align-items: center;
+}
+.container{
+    height: 80vh;
+}
+.open-modal,.close-modal{
+    border: black;
+    height: 100%;
+    width: 60%;
+    border: none;
+    background-image: linear-gradient(rgb(166,138,100,0),rgb(182,173,144,1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.actions i{
+    font-size: 2rem;
+}
+.actions div:hover{
+    transform: scale(1.1,1.1);
+    cursor: pointer;
+}
+.filter:hover{
+    transform: scale(1.1,1.1);
+    cursor: pointer;
+}
+
+

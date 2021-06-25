@@ -1,9 +1,6 @@
 let allFilters = document.querySelectorAll(".filter");
-let ticketsContainer = document.querySelector(".tickets-container");
-
 let openModal = document.querySelector(".open-modal");
 let closeModal = document.querySelector(".close-modal");
-
 let ticketModalOpen = false;
 let isTextTyped = false;
 
@@ -15,11 +12,23 @@ openModal.addEventListener("click", openTicketModal);
 closeModal.addEventListener("click", closeTicketModal);
 
 function selectFilter(e) {
-  let filterSelected = e.target.classList[1];
-  if (ticketsContainer.classList.length > 1) {
-    ticketsContainer.classList.remove(ticketsContainer.classList[1]);
+  if (e.target.classList.contains("active-filter")) {
+    // ticket append are on basis of some filter
+    e.target.classList.remove("active-filter");
+    // append all tickets
+    ticketsContainer.innerHTML = "";
+    loadTickets();
+  } else {
+    if (document.querySelector(".active-filter")) {
+      document
+        .querySelector(".active-filter")
+        .classList.remove("active-filter");
+    }
+    e.target.classList.add("active-filter");
+    ticketsContainer.innerHTML = "";
+    let filterClicked = e.target.classList[1];
+    loadSelectedTickets(filterClicked);
   }
-  ticketsContainer.classList.add(filterSelected);
 }
 
 function openTicketModal(e) {
@@ -38,6 +47,7 @@ function openTicketModal(e) {
     </div>`;
   document.querySelector("body").append(ticketModal);
   ticketModalOpen = true;
+  isTextTyped = false;
 
   let ticketTextDiv = ticketModal.querySelector(".ticket-text");
   ticketTextDiv.addEventListener("keypress", handleKeyPress);
@@ -65,6 +75,20 @@ function closeTicketModal(e) {
 }
 
 function handleKeyPress(e) {
+  if (e.key == "Enter" && isTextTyped && e.target.textContent) {
+    let filterSelected =
+      document.querySelector(".selected-filter").classList[1];
+    let ticketId = uuid();
+    let ticketInfoObject = {
+      ticketFilter: filterSelected,
+      ticketValue: e.target.textContent,
+      ticketId: ticketId,
+    };
+    appendTicket(ticketInfoObject);
+    closeModal.click();
+    saveTicketToDB(ticketInfoObject);
+  }
+
   if (!isTextTyped) {
     isTextTyped = true;
     e.target.textContent = "";
